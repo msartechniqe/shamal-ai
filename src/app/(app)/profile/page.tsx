@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, Globe, HelpCircle, LogOut, Settings, User, UserCircle } from "lucide-react";
+import { DemoAccess } from "@/components/DemoAccess";
+import { InstallApp } from "@/components/InstallApp";
 import { Page, TopBar } from "@/components/ui";
 import { useAuth } from "@/lib/auth-context";
 
@@ -57,8 +59,10 @@ export default function ProfilePage() {
           </li>
         </ul>
 
-        <p className="text-center text-[11px] text-muted mt-8">شمال AI · الإصدار التجريبي · ENBTHON 2026</p>
+        <DemoAccess/><InstallApp/>
+        <p className="text-center text-[11px] text-muted mt-8">تساهيل · الإصدار التجريبي</p>
       </Page>
     </>
   );
 }
+

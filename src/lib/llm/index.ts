@@ -36,6 +36,7 @@ export async function chat(messages: LLMMessage[], opts?: { json?: boolean; maxT
     const rest = messages.filter((m) => m.role !== "system");
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
+      signal: AbortSignal.timeout(30000),
       headers: {
         "content-type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY!,
@@ -57,6 +58,7 @@ export async function chat(messages: LLMMessage[], opts?: { json?: boolean; maxT
     const base = process.env.LLM_BASE_URL!.replace(/\/$/, "");
     const res = await fetch(`${base}/chat/completions`, {
       method: "POST",
+      signal: AbortSignal.timeout(30000),
       headers: { "content-type": "application/json", authorization: `Bearer ${process.env.LLM_API_KEY}` },
       body: JSON.stringify({
         model: process.env.LLM_MODEL,
@@ -75,6 +77,7 @@ export async function chat(messages: LLMMessage[], opts?: { json?: boolean; maxT
     // قالب عام: POST JSON { prompt, model } ويُتوقع { text } أو { response } — يُعدّل بعد معاينة واجهة Oracle الفعلية
     const res = await fetch(process.env.ORACLE_LLM_URL!, {
       method: "POST",
+      signal: AbortSignal.timeout(30000),
       headers: {
         "content-type": "application/json",
         ...(process.env.ORACLE_LLM_KEY ? { authorization: `Bearer ${process.env.ORACLE_LLM_KEY}` } : {}),
@@ -112,3 +115,4 @@ export function extractJSON<T>(text: string): T | null {
     return null;
   }
 }
+

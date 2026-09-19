@@ -111,9 +111,9 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
         </div>
 
         <div className="mt-4 space-y-2">
-          <a href={svc.url} target="_blank" rel="noopener noreferrer" className="btn-primary">
-            <ExternalLink size={18} /> الانتقال إلى {ent?.channel ?? "القناة الرسمية"}
-          </a>
+          <Link href={`/requests/new?service=${svc.id}`} className="btn-primary">
+            <ExternalLink size={18} /> تقديم الطلب في تساهيل
+          </Link>
           {scenario && (
             <Link href={`/understand?need=${encodeURIComponent(scenario.title)}`} className="btn-ghost">
               <Sparkles size={18} /> ابنِ لي رحلة لهذه الخدمة
@@ -124,3 +124,4 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
     </>
   );
 }
+

@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         }
       })
-      .catch(() => setDemoMode(true))
+      .catch(() => { setDemoMode(false); setUser(null); })
       .finally(() => setLoading(false));
   }, []);
 
@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async (email: string, password: string) => {
       if (demoMode) {
         if (!email || password.length < 4) throw new Error("أدخل بريداً وكلمة مرور صحيحة.");
-        return demoLogin(email.split("@")[0], email);
+        return demoLogin(email.startsWith("agency.") ? "موظف الجهة التجريبي" : email.startsWith("admin.demo") ? "مشرف تساهيل" : email === "beneficiary@example.test" ? "المستفيد التجريبي" : email.split("@")[0], email);
       }
       const r = await api<{ user: UserProfile }>("login", { email, password });
       setUser(r.user);
@@ -119,3 +119,4 @@ export function useAuth() {
   if (!ctx) throw new Error("useAuth خارج AuthProvider");
   return ctx;
 }
+

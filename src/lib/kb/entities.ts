@@ -4,7 +4,7 @@ import type { Entity } from "@/lib/types";
 export const ENTITIES: Entity[] = [
   { id: "mc", name: "وزارة التجارة", shortName: "التجارة", url: "https://mc.gov.sa", channel: "المركز السعودي للأعمال" },
   { id: "sbc", name: "المركز السعودي للأعمال", shortName: "مركز الأعمال", url: "https://business.sa", channel: "منصة المركز السعودي للأعمال" },
-  { id: "balady", name: "أمانة منطقة الحدود الشمالية", shortName: "الأمانة", url: "https://balady.gov.sa", channel: "منصة بلدي" },
+  { id: "balady", name: "الأمانات والبلديات", shortName: "الأمانة", url: "https://balady.gov.sa", channel: "منصة بلدي" },
   { id: "ejar", name: "منصة إيجار", shortName: "إيجار", url: "https://www.ejar.sa", channel: "منصة إيجار" },
   { id: "zatca", name: "هيئة الزكاة والضريبة والجمارك", shortName: "الزكاة والضريبة", url: "https://zatca.gov.sa", channel: "بوابة زاتكا" },
   { id: "gosi", name: "المؤسسة العامة للتأمينات الاجتماعية", shortName: "التأمينات", url: "https://www.gosi.gov.sa", channel: "بوابة التأمينات" },
@@ -22,3 +22,4 @@ export const ENTITIES: Entity[] = [
   { id: "hrsd", name: "وزارة الموارد البشرية والتنمية الاجتماعية", shortName: "الموارد البشرية", url: "https://www.hrsd.gov.sa", channel: "منصة الدعم والحماية الاجتماعية" },
   { id: "elm", name: "شركة علم", shortName: "علم", url: "https://www.elm.sa", channel: "تم" },
 ];
+

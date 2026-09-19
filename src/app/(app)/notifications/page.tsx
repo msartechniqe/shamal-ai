@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AlertTriangle, Bell, Check, Info } from "lucide-react";
+import { RequestAlerts } from "@/components/RequestAlerts";
 import { EmptyState, Page, TopBar } from "@/components/ui";
 import { useNotifications } from "@/lib/hooks/useJourneys";
 import { saveNotification } from "@/lib/storage";
@@ -45,6 +46,7 @@ export default function NotificationsPage() {
     <>
       <TopBar title="الإشعارات" back />
       <Page>
+        <RequestAlerts/>
         <div className="flex items-center gap-2">
           <button onClick={() => setTab("all")} className={`chip ${tab === "all" ? "chip-active" : ""}`}>
             الكل
@@ -88,3 +90,4 @@ export default function NotificationsPage() {
     </>
   );
 }
+

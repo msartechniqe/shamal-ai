@@ -1,12 +1,20 @@
 {
-  "name": "شمال AI",
-  "short_name": "شمال AI",
-  "description": "خدماتك الحكومية .. بأسهل طريقة",
+  "name": "تساهيل",
+  "short_name": "تساهيل",
+  "description": "طلباتك وخدماتك الحكومية في مكان واحد",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#eef4f4",
   "theme_color": "#1f6a68",
   "dir": "rtl",
   "lang": "ar",
-  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "id": "/",
+  "scope": "/"
 }

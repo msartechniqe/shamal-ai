@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Bell, ChevronRight, Home, LayoutGrid, MessageSquare, User } from "lucide-react";
+import { Bell, ChevronRight, Home, LayoutGrid, MessageSquare, User, Files } from "lucide-react";
 import type { ReactNode } from "react";
 import { LogoFull } from "./Logo";
 
@@ -67,7 +67,8 @@ export function NotificationBell({ count = 0 }: { count?: number }) {
 const NAV = [
   { href: "/home", label: "الرئيسية", icon: Home },
   { href: "/services", label: "الخدمات", icon: LayoutGrid },
-  { href: "/chats", label: "المحادثات", icon: MessageSquare },
+  { href: "/requests", label: "طلباتي", icon: Files },
+  { href: "/chats", label: "المساعد", icon: MessageSquare },
   { href: "/profile", label: "حسابي", icon: User },
 ];
 
@@ -75,7 +76,7 @@ export function BottomNav() {
   const path = usePathname();
   return (
     <nav className="sticky bottom-0 z-20 bg-surface border-t border-border pb-[env(safe-area-inset-bottom)]">
-      <ul className="grid grid-cols-4">
+      <ul className="grid grid-cols-5">
         {NAV.map(({ href, label, icon: Icon }) => {
           const active = path === href || path.startsWith(href + "/");
           return (
@@ -184,3 +185,4 @@ export function StatusPill({ level, label }: { level: "green" | "yellow" | "red"
     </span>
   );
 }
+

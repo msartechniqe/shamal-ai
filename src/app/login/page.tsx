@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { DemoAccess } from "@/components/DemoAccess";
 import { LogoFull } from "@/components/Logo";
 import { PhotoBackdrop } from "@/components/PhotoBackdrop";
 import { useAuth } from "@/lib/auth-context";
@@ -11,7 +12,8 @@ function LoginForm() {
   const { signIn, demoMode } = useAuth();
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/home";
+  const target = params.get("next") || "/home";
+  const next = target.startsWith("/") && !target.startsWith("//") && !target.includes("\\") ? target : "/home";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +81,7 @@ function LoginForm() {
       )}
 
       </div>
+      <DemoAccess/>
       <p className="relative text-center text-sm text-primary-dark mt-auto pt-8">
         ما عندك حساب؟{" "}
         <Link href="/register" className="text-primary font-bold">
@@ -96,3 +99,4 @@ export default function LoginPage() {
     </Suspense>
   );
 }
+

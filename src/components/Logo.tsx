@@ -1,6 +1,6 @@
 /**
- * شعار "شمال AI" — نسخة متجهية (SVG) مُعاد رسمها من التصميم الأصلي:
- * خريطة المملكة بخط أخضر مزرق، نخلة وجبال في الداخل، والنص "شمال AI" مع الشعار الفرعي.
+ * شعار "تساهيل" — نسخة متجهية (SVG) مُعاد رسمها من التصميم الأصلي:
+ * خريطة المملكة بخط أخضر مزرق، نخلة وجبال في الداخل، والنص "تساهيل" مع الشعار الفرعي.
  */
 export function LogoMark({ size = 56, className = "" }: { size?: number; className?: string }) {
   return (
@@ -11,7 +11,7 @@ export function LogoMark({ size = 56, className = "" }: { size?: number; classNa
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="شعار شمال AI"
+      aria-label="شعار تساهيل"
     >
       <defs>
         <linearGradient id="lg-teal" x1="0" y1="0" x2="0" y2="1">
@@ -71,7 +71,7 @@ export function LogoFull({
           className="font-bold"
           style={{ color, fontSize: size * 0.5, letterSpacing: "-0.5px" }}
         >
-          شمال <span style={{ fontFamily: "system-ui, sans-serif" }}>AI</span>
+          تساهيل
         </div>
         {showTagline && (
           <div style={{ color: sub, fontSize: Math.max(9, size * 0.22) }}>
@@ -82,3 +82,4 @@ export function LogoFull({
     </div>
   );
 }
+

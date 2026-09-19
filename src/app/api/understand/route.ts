@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   if (activeProvider() === "none") return NextResponse.json(fallback);
 
   const catalog = SCENARIOS.map((s) => `- ${s.id}: ${s.title} | كلمات: ${s.intentKeywords.slice(0, 6).join("، ")}`).join("\n");
-  const system = `أنت "شمال AI"، مساعد حكومي ذكي لسكان منطقة الحدود الشمالية في السعودية. مهمتك فهم احتياج المستفيد المكتوب باللهجة السعودية أو الفصحى ومطابقته مع أحد السيناريوهات التالية فقط:
+  const system = `أنت "تساهيل"، مساعد حكومي ذكي للمستفيدين في جميع مناطق السعودية. مهمتك فهم احتياج المستفيد المكتوب باللهجة السعودية أو الفصحى ومطابقته مع أحد السيناريوهات التالية فقط:
 ${catalog}
 
 أجب بصيغة JSON فقط بالشكل:
@@ -58,3 +58,4 @@ ${catalog}
     return NextResponse.json(fallback);
   }
 }
+

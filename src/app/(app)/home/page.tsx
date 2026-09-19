@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Car, ChevronLeft, Contact, FileBadge, Keyboard, Mic, Plane, Sparkles } from "lucide-react";
 import { NotificationBell, Page, SectionTitle, TopBar } from "@/components/ui";
+import { InstallApp } from "@/components/InstallApp";
 import { LogoMark } from "@/components/Logo";
 import { useAuth } from "@/lib/auth-context";
 import { useSpeech } from "@/lib/hooks/useSpeech";
@@ -13,13 +14,13 @@ import { getService } from "@/lib/kb";
 import { IMAGES } from "@/lib/images";
 
 const QUICK = [
-  { id: "iqama-renew", label: "تجديد الإقامة", sub: "الجوازات", icon: FileBadge, tile: "tile-beige", color: "#8a6d3b" },
-  { id: "passport-issue", label: "إصدار جواز سفر", sub: "الجوازات", icon: Plane, tile: "tile-blue", color: "#3b5f8a" },
-  { id: "driving-license", label: "إصدار رخصة قيادة", sub: "المرور", icon: Car, tile: "tile-green", color: "#2e7a5a" },
-  { id: "national-id-issue", label: "إصدار هوية وطنية", sub: "الأحوال المدنية", icon: Contact, tile: "tile-lavender", color: "#5b4f9a" },
+  { id: "commercial-register", label: "بدء نشاط", sub: "الأعمال", icon: FileBadge, tile: "tile-beige", color: "#8a6d3b" },
+  { id: "balady-license", label: "ترخيص نشاط", sub: "البلديات", icon: Contact, tile: "tile-blue", color: "#3b5f8a" },
+  { id: "final-permit", label: "تصريح / ترخيص", sub: "حسب النشاط", icon: FileBadge, tile: "tile-green", color: "#2e7a5a" },
+  { id: "driving-license", label: "رخصة قيادة", sub: "المرور", icon: Car, tile: "tile-lavender", color: "#5b4f9a" },
 ];
 
-const EXAMPLES = ["أبي أبدأ مشروع وما أعرف وش أحتاج", "هويتي منتهية وش أسوي؟", "أبي أجيب أهلي زيارة", "اشتريت سيارة وأبي أنقل ملكيتها"];
+const EXAMPLES = ["أبغى أستفسر من وزارة التجارة عن اسم تجاري", "أبي ترخيص نشاط لمشروعي", "أحتاج تصريح من البلدية"];
 
 /** الشاشة 1: الرئيسية — «وش تحتاج؟» */
 export default function HomePage() {
@@ -37,7 +38,8 @@ export default function HomePage() {
   const go = (text: string) => {
     const t = text.trim();
     if (!t) return;
-    router.push(`/understand?need=${encodeURIComponent(t)}`);
+    sessionStorage.setItem("tasaheel:need",t);
+    router.push("/requests/new");
   };
 
   const active = journeys.find((j) => j.steps.some((s) => s.status !== "done"));
@@ -51,9 +53,9 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/20 to-transparent" />
           <div className="absolute inset-0 p-5 pt-6 flex flex-col justify-start items-start text-white text-right" dir="rtl">
             <div className="text-lg leading-tight drop-shadow">أهلاً بك في</div>
-            <div className="text-[28px] font-bold leading-tight drop-shadow">شمال AI</div>
+            <div className="text-[28px] font-bold leading-tight drop-shadow">تساهيل</div>
             <p className="text-[11px] opacity-95 mt-2 max-w-[210px] leading-relaxed drop-shadow">
-              مساعدك الذكي للوصول إلى الخدمات الحكومية في منطقة الحدود الشمالية.
+              مساعدك الذكي للوصول إلى الخدمات الحكومية في جميع مناطق السعودية.
             </p>
             {user && <div className="text-[11px] mt-2 opacity-90 drop-shadow">مرحباً {user.name} 👋</div>}
           </div>
@@ -121,6 +123,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        <div className="mx-4 mt-4 grid grid-cols-2 gap-2"><Link href="/requests/new" className="btn-primary text-sm">تقديم طلب جديد</Link><Link href="/requests" className="btn-ghost text-sm">متابعة الطلبات</Link></div>
         {/* رحلتك الحالية */}
         {active && (
           <Link href={`/journey/${active.id}`} className="card mx-4 mt-3 p-4 flex items-center gap-3">
@@ -136,7 +139,7 @@ export default function HomePage() {
           </Link>
         )}
 
-        {/* أكثر الخدمات طلباً */}
+        {/* خدمات تبدأ بها */}
         <div className="px-4">
           <SectionTitle
             action={
@@ -145,7 +148,7 @@ export default function HomePage() {
               </Link>
             }
           >
-            أكثر الخدمات طلباً
+            خدمات تبدأ بها
           </SectionTitle>
           <div className="grid grid-cols-4 gap-2">
             {QUICK.map(({ id, label, sub, icon: Icon, tile, color }) => (
@@ -167,13 +170,15 @@ export default function HomePage() {
             <div className="relative p-4 pl-[42%] flex items-center gap-2">
               <div className="flex-1">
                 <div className="font-bold text-primary-dark text-sm">خدماتك في مكان واحد</div>
-                <p className="text-[11px] text-muted mt-1 leading-relaxed">نفهم احتياجك، نبني رحلتك، نكشف النواقص قبل التقديم، ونحدد خطوتك التالية.</p>
+                <p className="text-[11px] text-muted mt-1 leading-relaxed">نفهم احتياجك، نجهّز طلبك، ونوصله للجهة لتتابع الرد والنتيجة من مكان واحد.</p>
               </div>
               <ChevronLeft size={18} className="text-primary shrink-0" />
             </div>
           </section>
         </div>
+        <div className="mx-4"><InstallApp/></div>
       </Page>
     </>
   );
 }
+

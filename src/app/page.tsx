@@ -24,7 +24,7 @@ export default function Splash() {
       <div className="relative flex-1 flex flex-col items-center pt-24 px-8 text-center">
         <div className="flex items-center gap-3" dir="rtl">
           <div className="leading-none">
-            <div className="text-6xl font-bold text-primary-dark">شمال</div>
+            <div className="text-6xl font-bold text-primary-dark">تساهيل</div>
             <div className="text-xs text-primary-dark/80 mt-1">خدماتك الحكومية .. بأسهل طريقة</div>
           </div>
           <LogoMark size={96} />
@@ -33,9 +33,9 @@ export default function Splash() {
         <h2 className="mt-16 text-[28px] font-bold text-primary-dark leading-snug">
           من احتياجك ..
           <br />
-          إلى خطوتك التالية
+          إلى إنجاز طلبك
         </h2>
-        <p className="mt-3 text-primary-dark/75 text-sm max-w-xs">رحلة ذكية لمعرفتك الحكومية في منطقة الحدود الشمالية</p>
+        <p className="mt-3 text-primary-dark/75 text-sm max-w-xs">رحلة ذكية لمعرفتك الحكومية في جميع مناطق السعودية</p>
       </div>
 
       <div className="relative px-6 pb-12">
@@ -46,3 +46,4 @@ export default function Splash() {
     </main>
   );
 }
+
