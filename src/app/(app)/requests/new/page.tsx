@@ -1,7 +1,7 @@
 "use client";
 import {Suspense,useEffect,useState} from "react";
 import {useRouter,useSearchParams} from "next/navigation";
-import {Sparkles,ArrowLeft,Send,CheckCircle2,Mic} from "lucide-react";
+import {Sparkles,ArrowLeft,Send,CheckCircle2,Mic,HelpCircle,BadgeCheck,FileCheck2} from "lucide-react";
 import {Page,TopBar,Spinner} from "@/components/ui";
 import {DemoNote,Field,Upload} from "@/components/RequestWidgets";
 import {useRequests} from "@/lib/requests/hooks";
@@ -21,6 +21,8 @@ function NewRequest(){
    const pending=sessionStorage.getItem("tasaheel:need");if(pending){setNeed(pending);sessionStorage.removeItem("tasaheel:need");}
    const service=getService(params.get("service")||"");
    if(service){setDraft(d=>({...d,serviceId:service.id,entityId:service.entityId,subject:service.name,body:"أرغب في "+service.name,kind:/تصريح/.test(service.name)?"permit":/ترخيص|رخصة/.test(service.name)?"license":"inquiry"}));setStage(1);}
+   const kind=params.get("kind");
+   if(kind==="inquiry"||kind==="license"||kind==="permit"){setDraft(d=>({...d,kind}));}
  },[params]);
  function update(p:Partial<Draft>){setDraft(d=>({...d,...p}));setInspection("");}
  async function analyze(){
@@ -37,12 +39,17 @@ function NewRequest(){
  if(actor?.role!=="beneficiary")return <><TopBar title="طلب جديد" back="/requests"/><Page><p className="card p-4">تقديم الطلبات متاح من حساب المستفيد. حساب الجهة مخصص لاستقبال الطلبات والرد عليها.</p></Page></>;
  const docs=requiredDocuments(draft);
  return <><TopBar showLogo back="/requests"/><Page>
- <div className="eyebrow mt-3">من احتياجك إلى إنجاز طلبك</div><h1 className="text-2xl font-bold mt-1">خلّها على تساهيل</h1><DemoNote/>
- <ol className="step-strip my-5">{["احتياجك","تجهيز الطلب","المراجعة"].map((s,i)=><li key={s} className={stage>=i?"active":""}><span>{i+1}</span>{s}</li>)}</ol>
- {stage===0&&<div className="card p-5 space-y-4"><div className="flex items-center gap-2 text-primary font-bold"><Sparkles size={20}/>وش تحتاج من الجهة؟</div><p className="text-sm text-muted">اشرح بطريقتك، ونساعدك في صياغة الطلب واختيار الجهة.</p><textarea className="form-input min-h-36" aria-label="وصف احتياجك" value={need} maxLength={4000} onChange={e=>setNeed(e.target.value)} placeholder="مثلاً: أبغى أستفسر من وزارة التجارة عن اسم تجاري لمشروعي"/>
+ <div className="eyebrow mt-3">طلب جديد</div><h1 className="text-2xl font-extrabold mt-1">ابدأ معاملتك</h1><DemoNote/>
+ <ol className="step-strip my-5">{["نوع المعاملة","بيانات الطلب","المراجعة"].map((s,i)=><li key={s} className={stage>=i?"active":""}><span>{i+1}</span>{s}</li>)}</ol>
+ {stage===0&&<div className="space-y-4"><div className="start-grid">
+ <button className="start-card blue text-right" onClick={()=>update({kind:"inquiry"})}><span className="start-icon"><HelpCircle size={23}/></span><b>استفسار حكومي</b><small>سؤال أو طلب توضيح من جهة حكومية</small>{draft.kind==="inquiry"&&<CheckCircle2 className="start-arrow" size={18}/>}</button>
+ <button className="start-card gold text-right" onClick={()=>update({kind:"license"})}><span className="start-icon"><BadgeCheck size={23}/></span><b>ترخيص نشاط</b><small>إصدار أو تجديد ترخيص</small>{draft.kind==="license"&&<CheckCircle2 className="start-arrow" size={18}/>}</button>
+ <button className="start-card violet text-right" onClick={()=>update({kind:"permit"})}><span className="start-icon"><FileCheck2 size={23}/></span><b>طلب تصريح</b><small>تصريح فعالية أو ممارسة</small>{draft.kind==="permit"&&<CheckCircle2 className="start-arrow" size={18}/>}</button>
+ </div>
+ <div className="card p-5 space-y-4"><div className="flex items-center gap-2 text-primary font-bold"><Sparkles size={20}/>صف طلبك باختصار</div><p className="text-sm text-muted">سنقترح الجهة والخدمة ونجهّز المسودة، وستراجعها قبل الإرسال.</p><textarea className="form-input min-h-32" aria-label="وصف احتياجك" value={need} maxLength={4000} onChange={e=>setNeed(e.target.value)} placeholder="مثلاً: أريد فتح مقهى في مدينة جدة"/>
  <button type="button" className="btn-ghost" onClick={speech.toggle}><Mic size={18}/>{speech.listening?"إيقاف التسجيل":"تحدث بدلاً من الكتابة"}</button>
  {speech.error&&<p className="text-xs text-danger">{speech.error}</p>}
- <button className="btn-primary" disabled={busy||need.trim().length<10} onClick={analyze}>{busy?"نحلل احتياجك...":"فهم وتجهيز الطلب"}<ArrowLeft size={18}/></button></div>}
+ <button className="btn-primary" disabled={busy||need.trim().length<10} onClick={analyze}>{busy?"نحلل الطلب...":"متابعة وتجهيز البيانات"}<ArrowLeft size={18}/></button></div></div>}
  {stage===1&&<div className="space-y-4">
  {source&&<p className="text-xs text-muted">{source==="llm"?"تمت المساعدة في الصياغة باستخدام الذكاء الاصطناعي.":"تمت المطابقة الأولية بالكلمات المفتاحية؛ راجع الجهة والخدمة."}</p>}
  {question&&<p className="demo-note">{question}</p>}
