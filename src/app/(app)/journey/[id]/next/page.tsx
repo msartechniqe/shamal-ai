@@ -69,10 +69,10 @@ export default function NextStepPage({ params }: { params: Promise<{ id: string 
         )}
 
         <div className="mt-5 space-y-2">
-          {a.url && (
-            <a href={a.url} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              <ExternalLink size={18} /> الانتقال لـ{entity?.channel ?? "القناة الرسمية"}
-            </a>
+          {a.service && (
+            <Link href={`/requests/new?service=${a.service.id}`} className="btn-primary">
+              <ExternalLink size={18} /> تجهيز الطلب في تساهيل
+            </Link>
           )}
           <Link href={`/journey/${journey.id}`} className="btn-ghost">
             متابعة لاحقاً
@@ -82,3 +82,4 @@ export default function NextStepPage({ params }: { params: Promise<{ id: string 
     </>
   );
 }
+

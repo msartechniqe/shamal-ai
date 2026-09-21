@@ -10,10 +10,10 @@ const arabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "شمال AI | خدماتك الحكومية .. بأسهل طريقة",
+  title: "تساهيل | خدماتك الحكومية .. بأسهل طريقة",
   description:
-    "رحلة ذكية لمعرفتك الحكومية في منطقة الحدود الشمالية: من احتياجك إلى خطوتك التالية.",
-  applicationName: "شمال AI",
+    "رحلة ذكية لمعرفتك الحكومية في جميع مناطق السعودية: من احتياجك إلى إنجاز طلبك.",
+  applicationName: "تساهيل",
   manifest: "/manifest.json",
   icons: { icon: "/icon.svg", apple: "/icon.svg" },
 };
@@ -36,3 +36,4 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+

@@ -172,7 +172,7 @@ export function computeReadiness(j: Journey, step?: JourneyStep): Readiness {
     else unknown.push(r);
   }
   const total = reqs.length || 1;
-  const percent = Math.round((done.length / total) * 100);
+  const percent = reqs.length ? Math.round((done.length / total) * 100) : 100;
   let level: ReadinessLevel = "green";
   if (blockedByPrereq.length) level = "red";
   else if (missing.length || unknown.length) level = "yellow";
@@ -228,7 +228,7 @@ export function nextAction(j: Journey): {
   if (!st) return { kind: "finished", title: "اكتملت رحلتك", description: "أنجزت جميع الخطوات المطلوبة." };
   const svc = getService(st.serviceId)!;
   const r = computeReadiness(j, st);
-  const missing = [...r.blockedByPrereq, ...r.missing];
+  const missing = [...r.blockedByPrereq, ...r.missing, ...r.unknown];
   if (missing.length) {
     const req = missing[0];
     if (req.kind === "prerequisite") {
@@ -267,3 +267,4 @@ export function nextAction(j: Journey): {
 }
 
 export const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+

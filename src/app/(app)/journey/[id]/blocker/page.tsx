@@ -116,7 +116,7 @@ function Blocker({ id }: { id: string }) {
             <div className="text-xs text-muted mt-3">المدة المتوقعة: {obtain?.durationText ?? prereqSvc?.duration}</div>
           )}
           <p className="text-[11px] text-muted mt-3 bg-surface-2 rounded-xl px-3 py-2">
-            شمال AI لا يقترح تجاوز الأنظمة أو الشروط؛ يوجهك فقط إلى المسارات الرسمية المتاحة.
+            تساهيل لا يقترح تجاوز الأنظمة أو الشروط؛ يوجهك فقط إلى المسارات الرسمية المتاحة.
           </p>
         </div>
 
@@ -160,3 +160,4 @@ export default function BlockerPage({ params }: { params: Promise<{ id: string }
     </Suspense>
   );
 }
+
